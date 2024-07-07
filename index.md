@@ -7,7 +7,7 @@ hero:
   text: "Record learning"
   tagline: 人生无常，大肠包小肠
   image:
-    src: ./public/images.png
+    src: ./images.png
     alt: VitePress
   actions:
     - theme: brand
