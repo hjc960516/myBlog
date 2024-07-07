@@ -82,3 +82,11 @@ search: {
     provider: 'local', //全局搜索
   },
 ```
+
+## 部署静态网站
+
+1. 点击 git 项目的 settings
+2. 选择 pages 选项
+3. Branch 选项中 -> 选择分支 -> 选择 docs -> 点击 save
+
+访问: https://hjc960516.github.io/myBlog/ (规则：https://github 名称.github.io/项目名称/)

@@ -4,6 +4,8 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "My Blog",
   description: "欢迎来到我的Blog",
+  // outDir: 'docs', // 打包输出文件夹
+  // base: '/myBlog/', // 需要自定义打包输出文件夹时，需要配置 base，否则打包之后会出现路径问题
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     // 顶部导航栏
