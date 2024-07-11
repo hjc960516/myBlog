@@ -11,11 +11,11 @@ hero:
     alt: VitePress
   actions:
     - theme: brand
-      text: Notes
+      text: 起步
       link: /notes
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: Blog的搭建
+      link: /myBlog
 
 features:
   - title: Feature A
