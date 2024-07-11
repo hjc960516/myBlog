@@ -10,20 +10,14 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     // 顶部导航栏
     nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Notes', link: '/notes' }
+      { text: '首页', link: '/' },
+      { text: '起步', link: '/notes' }
     ],
 
     // 侧边栏
     sidebar: [
-      {
-        text: 'Examples',
-        items: [
-          // { text: 'Markdown Examples', link: '/markdown-examples' },
-          // { text: 'Runtime API Examples', link: '/api-examples' }
-          { text: 'Element Plus', link: '/Element-Plus' }
-        ]
-      }
+      { text: 'Blog的搭建', link: '/myBlog' },
+      { text: 'Element Plus框架构建原理及流程', link: '/Element-Plus' }
     ],
 
     // 全局页脚标题 修改页脚
