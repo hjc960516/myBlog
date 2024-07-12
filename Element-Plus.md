@@ -356,3 +356,293 @@ export default defineConfig({
 ```sh
 pnpm run build
 ```
+
+## 构建文档
+
+### 1.在 docs 文件下初始化，注意：不初始化的话，monorepo 会默认在根目录引入第三方库，而且必须要是共享的库，需要带上 -w 命令
+
+```sh
+pnpm init
+```
+
+### 2.安装 vitepress 框架
+
+```sh
+pnpm i vitepress -D
+```
+
+### 3.启动 vitepress 初始化目录
+
+```sh
+npx vitepress init
+```
+
+### 4.根据上一篇 blog 构建文章的步骤和配置进行配置 DOCS
+
+### 5.配置全局启动命令
+
+在 根目录 -> packages.json 配置
+
+```sh
+"docs:dev": "pnpm -C docs docs:dev",
+"docs:build": "pnpm -C docs docs:build"
+```
+
+### 6.在 dist 中输出声明文件
+
+#### 1.生成 tsconfi.json
+
+```sh
+tsc --init
+```
+
+### 6.新建 tscongi.web.json
+
+```json
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true, // 允许ts和js混合编译
+    "jsx": "preserve", // jsx支持
+    "lib": ["ES2018", "DOM", "DOM.Iterable"], // 支持ES6, DOM, DOM.Iterable: .net解析器
+    "skipLibCheck": true // 跳过.d.ts文件编译，提升速度
+  },
+  "include": ["packages", "typings/components.d.ts"],
+  "exclude": [
+    "node_modules",
+    "**/dist",
+    "**/__tests__/**/*",
+    "**/gulpfile.ts",
+    "**/test-helper",
+    "packages/test-utils",
+    "**/*.md"
+  ]
+}
+```
+
+### 7.新建 tsconfig.base.json
+
+```json
+{
+  "compilerOptions": {
+    "outDir": "dist", // 生成的文件存放的位置
+    "target": "es2018", // 支持ES6语法
+    "module": "esnext", // 指定ES模块化规范
+    "baseUrl": ".", // 项目根目录
+    "sourceMap": false, // 源码映射
+    "moduleResolution": "node", // 指定node模块解析
+    "allowJs": false, // 是否允许js文件
+    "strict": true, // 严格模式
+    "noUnusedLocals": true, // 无用变量
+    "resolveJsonModule": true, // 允许json模块
+    "allowSyntheticDefaultImports": true, // 允许默认import导出
+    "esModuleInterop": true,
+    "removeComments": false,
+    "rootDir": ".",
+    "types": []
+  }
+}
+```
+
+### 8.配置 tsconfig.json
+
+```json
+{
+  "references": [
+    {
+      "path": "./tsconfig.web.json"
+    }
+  ]
+}
+```
+
+### 9.安装 ts-morph
+
+在 inernal -> biuld 安装
+
+```sh
+pnpm i ts-morph -D
+```
+
+### 10.配置 vite 插件
+
+在 internal -> build -> vite.config.ts 下
+
+```js
+import { Plugin } from "vite";
+
+// vite插件
+const vitePluginsTypes = (): Plugin => {
+  return {
+    name: "vite-plugin-types", // 必须有
+    // transform(code, id) { // 每个文件都会经过该勾子函数
+    //   console.log(code, id);
+    // }
+    closeBundle() {
+      // 打完包以后会走这个勾子
+      // console.log("打包完成");
+      const Project = new Project({
+        compilerOptions: {
+          emitDeclearationOnly: true, // 只生成声明文件
+          outDir: TYPES_DIR, // 生成的文件存放的位置
+          skipLibCheck: true, // 跳过.d.ts文件编译，提升速度
+        },
+        tsConfigFilePath: TS_WEB_CONFIG, // tsconfig.web.json配置文件
+        skipAddingFilesFromTsConfig: true, // 跳过tsconfig中的添加的文件
+      });
+    },
+  };
+};
+
+// 然后在 plugins: [vue(), vitePluginsTypes()]注册一下
+```
+
+### 11. 安装扫描文件库 fast-glob
+
+在 internal -> build 安装
+
+```sh
+pnpm i fast-glob -D
+```
+
+### 12.在 internal -> build-constants 下新增常量
+
+```js
+// types文件夹
+export const TYPES_DIR = path.resolve(OUTPUT_DIR, "types");
+
+// tsconfig.web.json
+export const TS_WEB_CONFIG = path.resolve(ROOT, "tsconfig.web.json");
+
+// 扫描文件规则
+export const SCAN_FILES = "**/*.{js?(x),ts?(x),vue}";
+```
+
+### 13.扫描文件并把 packages 文件夹下的所有文件生成声明文件
+
+```js
+import { defineConfig } from "vite";
+
+import vue from "@vitejs/plugin-vue";
+import {
+  ENTRY,
+  OUTPUT_DIR,
+  TYPES_DIR,
+  TS_WEB_CONFIG,
+  SCAN_FILES,
+  EPROOT,
+} from "../build-constants/index";
+import { Plugin } from "vite";
+
+import { Project } from "ts-morph"; // 编译ts，会对ts进行编译，相当于js的babel
+import glob from "fast-glob"; // 扫描文件
+import fs from "node:fs";
+import * as vueCompiler from "vue/compiler-sfc";
+import { compile } from "vue";
+import path from "path";
+
+// vite插件
+const vitePluginsTypes = (): Plugin => {
+  return {
+    name: "vite-plugin-types", // 必须有
+    // transform(code, id) { // 每个文件都会经过该勾子函数
+    //   console.log(code, id);
+    // }
+    async closeBundle() {
+      // 打完包以后会走这个勾子
+      // console.log("打包完成");
+      const project = new Project({
+        compilerOptions: {
+          emitDeclearationOnly: true, // 只生成声明文件
+          outDir: TYPES_DIR, // 生成的文件存放的位置
+          skipLibCheck: true, // 跳过.d.ts文件编译，提升速度
+        },
+        tsConfigFilePath: TS_WEB_CONFIG, // tsconfig.web.json配置文件
+        skipAddingFilesFromTsConfig: true, // 跳过tsconfig中的添加的文件
+      });
+
+      // 扫描packages文件夹下，除了hjc-design-ui文件夹
+      // 第一个参数是扫描文件的规则, 第二个排除文件的规则
+      const files = await glob([SCAN_FILES, "!hjc-design-ui/**/*"], {
+        cwd: EPROOT, //扫描的目录
+        absolute: true, //绝对路径
+        onlyFiles: true, //只扫描文件
+      });
+      // 遍历文件
+      files.forEach((file) => {
+        // console.log(file);
+        // .vue文件
+        if (file.endsWith(".vue")) {
+          const vueFile = fs.readFileSync(file, "utf-8"); // 读取vue文件
+          // console.log(vueFile);
+
+          // 编译vue文件,把vue文件编译成对象
+          const sfc = vueCompiler.parse(vueFile);
+          // console.log(sfc);
+          // 解析出script和scriptSetup
+          const { script, scriptSetup } = sfc.descriptor;
+          if (script || scriptSetup) {
+            let tscode = script?.content ?? ""; // 处理setup函数模式的
+            // 处理setup语法糖
+            if (scriptSetup) {
+              // compile.compileScript处理编译宏的，也就是说类似definprops，defineemits等的函数是配合setup语法糖使用的
+              tscode += vueCompiler.compileScript(sfc.descriptor, {
+                id: "xxx", // 必须
+              }).content;
+
+              // 把代码添加到源文件中
+              const lang = scriptSetup ? "ts" : "js";
+              // 通过代码将vue文件生成声明文件
+              // 假装是ts文件，process.cwd()：当前工作目录
+              project.createSourceFile(
+                `${path.relative(process.cwd(), file)}.${lang}`,
+                tscode
+              );
+            }
+          }
+        } else {
+          // .ts文件
+          project.addSourceFileAtPath(file); // 添加源文件
+        }
+      });
+
+      // 扫描hjc-design-ui文件夹
+      const hjcDesignUiFiles = await glob([SCAN_FILES], {
+        cwd: ENTRY, // 扫描的目录
+        onlyFiles: true, // 只扫描文件
+      });
+
+      hjcDesignUiFiles.forEach((file) => {
+        project.addSourceFileAtPath(path.resolve(ENTRY, file));
+      });
+
+      // 添加源文件
+      project.emit({
+        emitOnlyDtsFiles: true, // 只生成.d.ts文件
+      });
+    },
+  };
+};
+
+export default defineConfig({
+  plugins: [vue(), vitePluginsTypes()],
+  build: {
+    lib: {
+      entry: ENTRY,
+      formats: ["es", "cjs", "umd", "iife"], // 打包格式
+      name: "hjcDesignUi",
+      fileName: (format, entryName) => `${entryName}.${format}.js`, // 打包后的文件名, entryName是上面的name,format是上面的formats格式
+    },
+    outDir: OUTPUT_DIR,
+    // rollupOptions 配置
+    rollupOptions: {
+      external: ["vue"], // 忽略vue打包
+      output: {
+        globals: {
+          vue: "Vue", // 适应iife格式，将vue全局变量重命名为Vue
+        },
+      },
+    },
+  },
+});
+```
