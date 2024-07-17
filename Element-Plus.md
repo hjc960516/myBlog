@@ -2,7 +2,7 @@
 outline: deep
 prev:
   text: Blog的搭建
-  link: /notes
+  link: /myBlog
 next:
   text: gulp
   link: /gulp
