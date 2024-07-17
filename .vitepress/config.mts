@@ -17,7 +17,8 @@ export default defineConfig({
     // 侧边栏
     sidebar: [
       { text: 'Blog的搭建', link: '/myBlog' },
-      { text: 'Element Plus框架构建原理及流程', link: '/Element-Plus' }
+      { text: 'Element Plus框架构建原理及流程', link: '/Element-Plus' },
+      { text: 'gulp', link: '/gulp' }
     ],
 
     // 全局页脚标题 修改页脚

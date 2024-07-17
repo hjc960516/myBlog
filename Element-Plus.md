@@ -3,9 +3,9 @@ outline: deep
 prev:
   text: Blog的搭建
   link: /notes
-# next:
-#   text: 开始学习
-#   link: /Element-Plus
+next:
+  text: gulp
+  link: /gulp
 ---
 
 ## 搭建前准备
@@ -390,13 +390,13 @@ npx vitepress init
 
 ### 6.在 dist 中输出声明文件
 
-#### 1.生成 tsconfi.json
+#### 1.根目录生成 tsconfig.json
 
 ```sh
 tsc --init
 ```
 
-### 6.新建 tscongi.web.json
+### 7.新建 tscongi.web.json
 
 ```json
 {
@@ -420,7 +420,7 @@ tsc --init
 }
 ```
 
-### 7.新建 tsconfig.base.json
+### 8.新建 tsconfig.base.json
 
 ```json
 {
@@ -444,7 +444,7 @@ tsc --init
 }
 ```
 
-### 8.配置 tsconfig.json
+### 9.配置 tsconfig.json
 
 ```json
 {
@@ -456,7 +456,7 @@ tsc --init
 }
 ```
 
-### 9.安装 ts-morph
+### 10.安装 ts-morph
 
 在 inernal -> biuld 安装
 
@@ -464,12 +464,13 @@ tsc --init
 pnpm i ts-morph -D
 ```
 
-### 10.配置 vite 插件
+### 11.配置 vite 插件
 
 在 internal -> build -> vite.config.ts 下
 
 ```js
 import { Plugin } from "vite";
+import { Project } from "ts-morph"; // 编译ts，会对ts进行编译，相当于js的babel
 
 // vite插件
 const vitePluginsTypes = (): Plugin => {
@@ -497,7 +498,7 @@ const vitePluginsTypes = (): Plugin => {
 // 然后在 plugins: [vue(), vitePluginsTypes()]注册一下
 ```
 
-### 11. 安装扫描文件库 fast-glob
+### 12. 安装扫描文件库 fast-glob
 
 在 internal -> build 安装
 
@@ -505,7 +506,7 @@ const vitePluginsTypes = (): Plugin => {
 pnpm i fast-glob -D
 ```
 
-### 12.在 internal -> build-constants 下新增常量
+### 13.在 internal -> build-constants 下新增常量
 
 ```js
 // types文件夹
@@ -518,7 +519,7 @@ export const TS_WEB_CONFIG = path.resolve(ROOT, "tsconfig.web.json");
 export const SCAN_FILES = "**/*.{js?(x),ts?(x),vue}";
 ```
 
-### 13.扫描文件并把 packages 文件夹下的所有文件生成声明文件
+### 14.扫描文件并把 packages 文件夹下的所有文件生成声明文件
 
 ```js
 import { defineConfig } from "vite";
@@ -642,6 +643,224 @@ export default defineConfig({
           vue: "Vue", // 适应iife格式，将vue全局变量重命名为Vue
         },
       },
+    },
+  },
+});
+```
+
+## 自定义 docs 主题
+
+### 1.创建 examples 文件
+
+在 docs 文件下新建 examples 文件夹 \
+然后在 examples 文件下，创建对应组件类型的文件夹，在其文件夹下创建多种样式的.vue 文件 \
+例如: button 组件有 disable 组件，default 组件，name 在 examples -> button 里面创建 disable.vue 和 basic.vue 组件
+
+### 2.创建 guide 文件
+
+在 docs 文件下新建 guide 文件夹 \
+guide 文件夹下创建对应 examples 文件夹下的子文件夹的.md 文件 \
+例如：button 文件夹就创建 button.md,input 就创建 input.md \
+
+button.md
+
+```md
+---
+outline: deep
+next:
+  text: "Input组件"
+  link: "/guide/input.md"
+---
+
+## Button
+
+Commonly used button.
+
+### Basic usage
+
+:::demo Use type, plain, round and circle to define Button's style.
+
+button/basic
+
+:::
+```
+
+input.md
+
+```md
+---
+outline: deep
+prev:
+  text: "Button组件"
+  link: "/guide/button.md"
+next:
+  text: "Input组件"
+  link: "/guide/input.md"
+---
+
+## Input
+
+Input data using mouse or keyboard.
+
+:::warning
+
+Input is a controlled component, it always shows Vue binding value.
+
+Under normal circumstances, input event should be handled. Its handler should update component's binding value (or use v-model). Otherwise, input box's value will not change.
+
+Do not support v-model modifiers.
+
+:::
+
+### Basic usage
+
+:::demo
+
+input/basic
+
+:::
+```
+
+### 3.把组件导入到 docs 里面
+
+将写好的自定义组件库导入到 docs 文件夹里面 \
+也就是把 packages/components 的所有组件的模块导入
+
+```sh
+pnpm add packages/components的模块名 --filter docs的模块名
+```
+
+### 4.新建自定义主题文件
+
+在 docs -> .vitepress 新建 theme 文件夹(特定名字文件夹) \
+然后在 theme 文件下新建 index.ts \
+注意事项：如果没把原默认主题注册进去，会变空白，也就是说需要自己重新全部自定义 \
+ 需要读取到 component.name 需要在对应的组件中添加 vue3.4 所新出的编译宏 defineOptions 添加
+
+```button.vue
+// 在packages/components/button/src/index.vue中的script中添加
+
+defineOptions({
+  name: 'xxxButton'
+})
+
+```
+
+```js
+import DefaultTheme from "vitepress/theme"; // vitepress默认主题
+import type { Theme } from "vitepress";
+
+import * as components from "@hjc-design-ui/components"; // 所有组件
+
+export default <Theme>{
+  // vitepress 默认主题配置
+  ...DefaultTheme,
+  // 注册全局组件， app就是vue里面的app
+  enhanceApp({ app }) {
+    const arr = Object.entries(components);
+
+    for (const [key, value] of arr) {
+      console.log(key, value, 11111111111);
+      app.component(value.name, value);
+    }
+  }
+}
+```
+
+### 5.安装 markdown-it 插件 和 markdown-it-container 插件
+
+markdown-it 就是 md 解释器，把 md 语法变成 html \
+markdown-it-container 是 md 转译 html 的容器
+在 docs 下安装
+
+```sh
+pnpm i markdown-it
+pnpm i markdown-it-container
+```
+
+### 6.在 docs 文件下新建 plugins/aiascom.ts 文件
+
+```js
+import MarkDownIt from "markdown-it";
+
+import mdContainer from "markdown-it-container";
+
+import fs from "node:fs";
+import path from "node:path";
+
+// md是.vitepress/config.mts中的md.use()函数返回的传入的对象
+export const aiascom = (md: MarkDownIt) => {
+  // console.log(md, 555555555555);
+
+  // 自定义插件
+  // 第一个参数是容器, 第二个参数是容器的标签
+  md.use(mdContainer, "div", {
+    validate: (params) => params.trim().match(/^demo\s*(.*)$/), // 匹配guide里面的md文件中的:::demo里面的内容
+    render(tokens, index) {
+      // console.log(tokens, index, 2222222222222);
+      // 获取type为inline的对象
+      const souresFile = tokens[index + 2];
+      let contents;
+      if (souresFile && souresFile.type == "inline") {
+        // 读取到md中对应的组件路径，并将其替换为examples里面对应的vue文件
+        // souresFile.content是md文件中:::demo里面的内容
+        // vuePath对应的examples里面的vue文件，也就是把:::demo里面的内容路径替换成对应的组件
+        const vuePath = path.resolve(
+          __dirname,
+          `../examples/${souresFile.content}.vue`
+        );
+        contents = fs.readFileSync(vuePath);
+        console.log(souresFile.content, 2222222222);
+        console.log(
+          path.resolve(__dirname, `../examples/${souresFile.content}.vue`),
+          333333333
+        );
+      }
+      // 返回渲染组件内容
+      return contents;
+    },
+  });
+};
+```
+
+### 7.在 markdown 中注册组件
+
+在.vitepress 的 config.mts 文件中注册
+
+```js
+import { defineConfig } from "vitepress";
+
+import { aiascom } from "../plugins/aiascom";
+
+// https://vitepress.dev/reference/site-config
+export default defineConfig({
+  title: "hjc-design-ui Docs",
+  description: "A VitePress Site",
+  themeConfig: {
+    // https://vitepress.dev/reference/default-theme-config
+    nav: [
+      { text: "Home", link: "/" },
+      { text: "Examples", link: "/markdown-examples" },
+    ],
+
+    sidebar: [
+      {
+        text: "组件",
+        items: [
+          { text: "Button组件", link: "/guide/button.md" },
+          { text: "Input组件", link: "/guide/input.md" },
+        ],
+      },
+    ],
+
+    socialLinks: [
+      { icon: "github", link: "https://github.com/vuejs/vitepress" },
+    ],
+  },
+  // 注册全局组件，在vitepress中注册vue组件
+  markdown: {
+    config(md) {
+      md.use(aiascom); // 注册插件
     },
   },
 });
