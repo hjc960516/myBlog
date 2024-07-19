@@ -4,6 +4,9 @@ outline: deep
 prev:
   text: "Element Plus框架构建原理及流程"
   link: /Element-Plus
+next:
+  text: "埋点"
+  link: "buried-point.md"
 ---
 
 ## 前言

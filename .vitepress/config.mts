@@ -18,7 +18,9 @@ export default defineConfig({
     sidebar: [
       { text: 'Blog的搭建', link: '/myBlog' },
       { text: 'Element Plus框架构建原理及流程', link: '/Element-Plus' },
-      { text: 'gulp', link: '/gulp' }
+      { text: 'gulp', link: '/gulp' },
+      { text: '埋点', link: '/buried-point' },
+      { text: 'webrtc音视频通话', link: '/webrtc' }
     ],
 
     // 全局页脚标题 修改页脚
