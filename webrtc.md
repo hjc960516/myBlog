@@ -4,7 +4,15 @@ outline: deep
 prev:
   text: "埋点"
   link: "/buried-point"
+
+next:
+  text: "nginx"
+  link: "/nginx"
 ---
+
+## 注意
+
+该示例是利用谷歌自带解码进行一对一视频，所以没做流的处理，如果需要做类似直播一对多的，需要自己做流的处理，将`webm`格式转成`rtmp`格式
 
 ## 用处
 
