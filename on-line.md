@@ -4,6 +4,10 @@ outline: deep
 prev:
   text: "nginx"
   link: "/nginx"
+
+next:
+  text: "mysql浅了解"
+  link: "/mysql"
 ---
 
 ## webrtc

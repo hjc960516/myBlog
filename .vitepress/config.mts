@@ -22,7 +22,8 @@ export default defineConfig({
       { text: '埋点', link: '/buried-point' },
       { text: 'webrtc多人协同(音视频)', link: '/webrtc' },
       { text: 'nginx', link: '/nginx' },
-      { text: '直播技术详解', link: '/on-line' }
+      { text: '直播技术详解', link: '/on-line' },
+      { text: 'mysql浅了解', link: '/mysql' }
     ],
 
     // 全局页脚标题 修改页脚
