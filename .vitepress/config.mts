@@ -23,7 +23,8 @@ export default defineConfig({
       { text: 'webrtc多人协同(音视频)', link: '/webrtc' },
       { text: 'nginx', link: '/nginx' },
       { text: '直播技术详解', link: '/on-line' },
-      { text: 'mysql浅了解', link: '/mysql' }
+      { text: 'mysql浅了解', link: '/mysql' },
+      { text: 'axios原理解析', link: '/axios' }
     ],
 
     // 全局页脚标题 修改页脚

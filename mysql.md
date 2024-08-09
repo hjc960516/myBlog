@@ -2,6 +2,10 @@
 prev:
   text: "直播技术详解"
   link: "/on-line"
+
+next:
+  text: "axios原理解析"
+  link: "/axios"
 ---
 
 ## 安装
