@@ -1,7 +1,12 @@
 ---
+outline: deep
 prev:
   text: "mysql浅了解"
   link: "/mysql"
+
+next:
+  text: "webpack"
+  link: "/webpack/webpackConfig"
 ---
 
 ## Axios

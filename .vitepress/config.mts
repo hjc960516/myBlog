@@ -24,7 +24,19 @@ export default defineConfig({
       { text: 'nginx', link: '/nginx' },
       { text: '直播技术详解', link: '/on-line' },
       { text: 'mysql浅了解', link: '/mysql' },
-      { text: 'axios原理解析', link: '/axios' }
+      { text: 'axios原理解析', link: '/axios' },
+      {
+        text: 'webpack', items: [
+          {
+            text: 'webpack配置',
+            link: '/webpack/webpackConfig.md'
+          },
+          {
+            text: '构建小型webpack',
+            link: '/webpack/miniWebpack.md'
+          }
+        ]
+      }
     ],
 
     // 全局页脚标题 修改页脚
