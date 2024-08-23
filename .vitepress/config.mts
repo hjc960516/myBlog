@@ -36,7 +36,8 @@ export default defineConfig({
             link: '/webpack/miniWebpack.md'
           }
         ]
-      }
+      },
+      { text: '构建小型vite', link: '/vite' },
     ],
 
     // 全局页脚标题 修改页脚

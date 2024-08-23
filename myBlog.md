@@ -31,7 +31,7 @@ npx vitepress init
 
 ```js
 ---
-  outline: deep // 主题
+  outline: deep // 是否显示多层
   prev:
     text: 这是上一页的按钮描述
     link: /页面地址

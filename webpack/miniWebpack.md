@@ -3,9 +3,9 @@ outline: deep
 prev:
   text: "webpack配置"
   link: "/webpack/webpackConfig"
-# next:
-#   text: "webpack"
-#   link: "/webpack/webpack_BuildAndLoader"
+next:
+  text: "构建小型vite"
+  link: "/vite"
 ---
 
 ## babel
