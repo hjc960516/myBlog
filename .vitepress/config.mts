@@ -38,6 +38,7 @@ export default defineConfig({
         ]
       },
       { text: '构建小型vite', link: '/vite' },
+      { text: 'pinia核心思想', link: '/pinia' },
     ],
 
     // 全局页脚标题 修改页脚

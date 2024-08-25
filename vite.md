@@ -3,9 +3,9 @@ outline: deep
 prev:
   text: "构建小型webpack"
   link: "/webpack/miniWebpack"
-# next:
-#   text: "构建小型vite"
-#   link: "/vite"
+next:
+  text: "pinia核心思想"
+  link: "/pinia"
 ---
 
 ## vite 的启动服务
