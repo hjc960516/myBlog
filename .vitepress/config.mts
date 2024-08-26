@@ -39,6 +39,7 @@ export default defineConfig({
       },
       { text: '构建小型vite', link: '/vite' },
       { text: 'pinia核心思想', link: '/pinia' },
+      { text: '无界微前端框架', link: '/wujie-miciroApp' },
     ],
 
     // 全局页脚标题 修改页脚

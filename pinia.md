@@ -3,9 +3,9 @@ outline: deep
 prev:
   text: "构建小型vite"
   link: "/vite"
-# next:
-#   text: "pinia核心思想"
-#   link: "/pinia"
+next:
+  text: "无界微前端框架"
+  link: "/wujie-miciroApp"
 ---
 
 ## 状态管理工具
@@ -570,7 +570,6 @@ function definStore(id: string, params: Options | SetupFn): SetupFn {
  * @returns 处理过以后的state
  */
 function compileSetup(pinia: Pinia, id: string, setupStore: object) {
-
   // 初始化state
   !pinia.state[id] && (pinia.state[id] = reactive({}))
 
@@ -580,9 +579,6 @@ function compileSetup(pinia: Pinia, id: string, setupStore: object) {
     const val = setupStore[key as keyof typeof setupStore]
     if ((isRef(val) && !isComputed(val)) || isReactive(val)) {
       pinia.state[id][key] = val
-    } else if (isComputed(val)) {
-      const computedState: any = setupStore[key as keyof typeof setupStore]
-      console.log('computed', computedState);
     }
   }
   return {
@@ -601,17 +597,17 @@ function createSetupPinia(id: string, params: SetupFn, pinia: Pinia) {
 
   // 处理state
   let store: any = {}
+  let scope: EffectScope;
   // 用本身的scope去管理和监听state
   const res = pinia.scope.run(() => {
-    let scope = effectScope()
-    // 注入api
+    scope = effectScope()
     store = reactive(createApis(pinia, id, scope))
-    return scope.run(() => compileSetup(pinia, id, setupStore))
+    // 注入api
+    // 注意: 需要把params这个函数丢进去作用域执行才可以让computed停掉
+    // 也就是computed函数和watch函数必须在effectScope中执行
+    return scope.run(() => compileSetup(pinia, id, params()))
   })
-
   console.log(res, 44444444444);
-
-
 
   // 存进store
   pinia.store.set(id, store)
@@ -695,8 +691,6 @@ function createOptionsPinia(id: string, params: Options, pinia: Pinia) {
   // 一旦store的值发生变化，map里面的值也会发生变化
   Object.assign(store, res)
 }
-
-
 
 export default definStore
 ```
