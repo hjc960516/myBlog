@@ -3,9 +3,9 @@ outline: deep
 prev:
   text: "pinia核心思想"
   link: "/pinia"
-# next:
-#   text: "无界微前端框架"
-#   link: "/wujie-miciroApp"
+next:
+  text: "hybrid混合开发和移动端适配"
+  link: "/hybridMixAndmobile"
 ---
 
 ## 微前端
