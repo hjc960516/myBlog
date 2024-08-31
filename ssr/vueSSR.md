@@ -3,9 +3,9 @@ outline: deep
 prev:
   text: "ssr服务端渲染"
   link: "/ssr/index"
-# next:
-#   text: "postcss"
-#   link: "/postcss"
+next:
+  text: "vue-router4"
+  link: "/vue-router4"
 ---
 
 ## vite 创建项目

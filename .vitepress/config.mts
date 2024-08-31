@@ -47,7 +47,8 @@ export default defineConfig({
         items: [
           { text: 'vue的ssr服务端渲染', link: '/ssr/vueSSR' }
         ]
-      }
+      },
+      { text: 'vue-router4', link: '/vue-router4' },
     ],
 
     // 全局页脚标题 修改页脚
