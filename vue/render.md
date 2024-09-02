@@ -764,4 +764,5 @@ export const nextTick = (fn?: (...args: any[]) => void) => {
 export * from "./renderer/utils";
 export * from "./renderer/renderer";
 export * from "./renderer/vnode";
+export * from "./renderer/queue";
 ```
