@@ -18,10 +18,12 @@ hero:
       link: /myBlog
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: Blog的搭建
+    details: 构建自己的Blog
+    link: "/myBlog"
+  - title: vue源码解析
+    details: vue源码解析
+    link: "/vue/index"
   - title: Feature C
     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
 ---

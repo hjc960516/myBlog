@@ -49,6 +49,12 @@ export default defineConfig({
         ]
       },
       { text: 'vue-router4', link: '/vue-router4' },
+      {
+        text: 'vue源码构建前步骤', link: '/vue/index', items: [
+          { text: 'vue的响应式', link: '/vue/reactivity' },
+          { text: 'vue3的渲染器、生命周期、组件、nextTick', link: '/vue/render' }
+        ]
+      },
     ],
 
     // 全局页脚标题 修改页脚

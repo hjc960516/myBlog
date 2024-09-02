@@ -4,9 +4,9 @@ outline: deep
 prev:
   text: "vue的ssr服务端渲染"
   link: "/ssr/vueSSR"
-# next:
-#   text: "ssr服务端渲染"
-#   link: "/ssr/index"
+next:
+  text: "vue源码解析"
+  link: "/vue/index"
 ---
 
 ## router4

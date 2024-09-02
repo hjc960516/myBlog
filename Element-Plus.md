@@ -180,7 +180,7 @@ pnpm i @vitejs/plugin-vue -D
 ### 4.导入自己的组件模块
 
 ```sh
-pnpm add 自己模块名称 --filter 需要导入的模块名称
+pnpm add 需要导入的模块名称 --filter 自己模块名称
 ```
 
 ### 5.创建 App.vue 文件
