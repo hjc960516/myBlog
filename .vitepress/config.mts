@@ -55,6 +55,50 @@ export default defineConfig({
           { text: 'vue3的渲染器、生命周期、组件、nextTick', link: '/vue/render' }
         ]
       },
+      {
+        text: 'nodejs', link: '/node/index', items: [
+          { text: 'npm的配置文件、install的原理、run的原理、npm生命周期、npx命令', link: '/node/npm' },
+          { text: 'npm私有域以及发布npm包', link: '/node/npm-private' },
+          { text: '模块化', link: '/node/modules' },
+          { text: '全局变量以及全局API', link: '/node/global-variableAndApi' },
+          { text: 'csr、ssr、seo', link: '/node/csr&ssr&seo' },
+          { text: 'path模块和posix', link: '/node/path_windows&posix' },
+          { text: 'os系统模块', link: '/node/os' },
+          { text: 'child_process模块', link: '/node/child_process' },
+          { text: 'node调用ffmpeg', link: '/node/ffmpeg' },
+          { text: 'events事件触发器', link: '/node/events' },
+          { text: 'utils模块', link: '/node/utils' },
+          { text: 'pngquant图片压缩', link: '/node/pngquant' },
+          { text: 'fs模块', link: '/node/fs' },
+          { text: 'crypto密码学模块', link: '/node/crypto' },
+          { text: '创建自定义脚手架(cli)', link: '/node/createCli' },
+          { text: 'markdown转html', link: '/node/markdownToHtml' },
+          { text: 'zlib模块(压缩和解压)', link: '/node/zlib' },
+          { text: 'http服务模块', link: '/node/http' },
+          { text: 'http服务反向代理', link: '/node/http-proxy' },
+          { text: '动静态资源分离', link: '/node/staticAndDynamic' },
+          { text: '邮件服务', link: '/node/mailServer' },
+          {
+            text: 'express框架', items: [
+              { text: 'express框架基本使用', link: '/node/express/index' },
+              { text: '防盗链', link: '/node/express/anti-hostlink' },
+              { text: '响应头', link: '/node/express/responeHeaders' },
+            ]
+          },
+          {
+            text: 'mysql',
+            items: [
+              { text: 'mysql基本介绍、安装、可视化工具', link: '/node/mysql/index' },
+              { text: 'sql语句', link: '/node/mysql/sqlStatements' },
+              { text: '查询', link: '/node/mysql/search' },
+              { text: '新增，删除，更新', link: '/node/mysql/add_update_delete' },
+              { text: '表达式和函数', link: '/node/mysql/expressionAndFn' },
+              { text: '子查询和连表', link: '/node/mysql/childSearch_connect' },
+              { text: 'mysql2+express+yaml实现增删改查', link: '/node/mysql/mysql2_express_yaml' },
+            ]
+          }
+        ]
+      }
     ],
 
     // 全局页脚标题 修改页脚
