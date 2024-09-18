@@ -95,6 +95,8 @@ export default defineConfig({
               { text: '表达式和函数', link: '/node/mysql/expressionAndFn' },
               { text: '子查询和连表', link: '/node/mysql/childSearch_connect' },
               { text: 'mysql2+express+yaml实现增删改查', link: '/node/mysql/mysql2_express_yaml' },
+              { text: 'knex+express实现增删改查', link: '/node/mysql/knex_express' },
+              { text: 'prisma+express实现增删改查', link: '/node/mysql/prisma_express' },
             ]
           }
         ]
