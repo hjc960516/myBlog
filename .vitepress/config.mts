@@ -98,6 +98,10 @@ export default defineConfig({
               { text: 'knex+express实现增删改查', link: '/node/mysql/knex_express' },
               { text: 'prisma+express实现增删改查', link: '/node/mysql/prisma_express' },
             ]
+          },
+          {
+            text: "项目构建(mvc+ioc+装饰器)",
+            link: "/node/build_project/build_project"
           }
         ]
       }

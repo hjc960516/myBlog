@@ -5,8 +5,8 @@ prev:
   text: "knex+express实现增删改查"
   link: "/node/mysql/knex_express"
 next:
-  text: "prisma+express"
-  link: "/node/mysql/prisma_express"
+  text: "项目构建(mvc+ioc+装饰器)"
+  link: "/node/build_project/build_project"
 ---
 
 ## prisma 企业级
@@ -34,7 +34,7 @@ Prisma 支持多种主流数据库，包括 PostgreSQL、MySQL 和 SQLite，它�
 ### 安装
 
 ```sh
-# 如果不支持 .ts文件  typescript: 支持.ts文件   ts-node: 启动.ts文件的
+# 如果不支持 .ts文件  typescript: 支持.ts文件和tsc命令   ts-node: 启动.ts文件的
 npm i typescript ts-node -g
 ```
 
