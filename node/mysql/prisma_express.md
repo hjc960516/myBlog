@@ -5,7 +5,7 @@ prev:
   text: "knex+express实现增删改查"
   link: "/node/mysql/knex_express"
 next:
-  text: "项目构建(mvc+ioc+装饰器)"
+  text: "项目构建(mvc+ioc+装饰器+jwt(token验证))"
   link: "/node/build_project/build_project"
 ---
 

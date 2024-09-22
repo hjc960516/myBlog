@@ -100,8 +100,33 @@ export default defineConfig({
             ]
           },
           {
-            text: "项目构建(mvc+ioc+装饰器)",
+            text: "项目构建(mvc+ioc+装饰器+jwt(token验证))",
             link: "/node/build_project/build_project"
+          },
+          {
+            text: 'Redis',
+            items: [
+              {
+                text: "redis安装与可视化",
+                link: "/node/redis/index"
+              },
+              {
+                text: "redis基本使用",
+                link: "/node/redis/basicUse"
+              },
+              {
+                text: "发布订阅和事务",
+                link: "/node/redis/publish_subscribeAndTransaction"
+              },
+              {
+                text: "持久化和主从复制",
+                link: "/node/redis/persistence_masterSlave"
+              },
+              {
+                text: "ioredis",
+                link: "/node/redis/ioredis"
+              },
+            ]
           }
         ]
       }

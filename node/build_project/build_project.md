@@ -5,8 +5,8 @@ prev:
   text: "prisma+express实现增删改查"
   link: "/node/mysql/prisma_express"
 next:
-  text: "prisma+express"
-  link: "/node/mysql/prisma_express"
+  text: "redis安装与可视化"
+  link: "/node/redis/index"
 ---
 
 ## 前言
