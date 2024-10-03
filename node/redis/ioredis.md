@@ -5,8 +5,8 @@ prev:
   text: "持久化和主从复制"
   link: "/node/redis/persistence_masterSlave"
 next:
-  text: "发布订阅和事务"
-  link: "/node/redis/publish_subscribeAndTransaction"
+  text: "lua安装和介绍"
+  link: "/node/lua/index"
 ---
 
 ## ioredis

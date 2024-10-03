@@ -127,7 +127,34 @@ export default defineConfig({
                 link: "/node/redis/ioredis"
               },
             ]
-          }
+          },
+          {
+            text: 'lua',
+            items: [
+              { text: "lua安装和介绍", link: "/node/lua/index" },
+              { text: "lua基本使用", link: "/node/lua/use" }
+            ]
+          },
+          {
+            text: "ioredis、express、lua脚本实现限流阀",
+            link: '/node/ioredis_express_lua'
+          },
+          {
+            text: "定时任务",
+            link: '/node/scheduled_tasks'
+          },
+          {
+            text: "serverLess(无服务架构)",
+            link: '/node/serverless'
+          },
+          {
+            text: "net模块",
+            link: '/node/net'
+          },
+          {
+            text: "利用socket.io构建聊天室",
+            link: '/node/socketio'
+          },
         ]
       }
     ],
