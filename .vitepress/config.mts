@@ -155,6 +155,22 @@ export default defineConfig({
             text: "利用socket.io构建聊天室",
             link: '/node/socketio'
           },
+          {
+            text: "爬虫生成词云图",
+            link: '/node/reptile'
+          },
+          {
+            text: "nodejs的c++扩展(addon)",
+            link: '/node/addon'
+          },
+          {
+            text: "大文件上传和文件流下载",
+            link: '/node/bigFileUpload_dowmloadStream'
+          },
+          {
+            text: "http缓存",
+            link: '/node/http_cache'
+          },
         ]
       }
     ],

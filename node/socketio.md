@@ -7,8 +7,8 @@ prev:
   text: "net模块"
   link: "/node/net"
 next:
-  text: "利用socket.io构建聊天室"
-  link: "/node/socketio"
+  text: "爬虫生成词云图"
+  link: "/node/reptile"
 ---
 
 ## 传统 HTTP 传输和 socket 传输
