@@ -171,6 +171,34 @@ export default defineConfig({
             text: "http缓存",
             link: '/node/http_cache'
           },
+          {
+            text: "http2",
+            link: '/node/http2'
+          },
+          {
+            text: "短链接",
+            link: '/node/short_link'
+          },
+          {
+            text: "串口技术(物联网)",
+            link: '/node/serialPort'
+          },
+          {
+            text: "SSO单点登录",
+            link: '/node/sso_login'
+          },
+          {
+            text: "SDL单设备登录",
+            link: '/node/single_device_login'
+          },
+          {
+            text: "SCL扫码登录",
+            link: '/node/scanCodeLogin'
+          },
+          {
+            text: "openAi",
+            link: '/node/openAi'
+          },
         ]
       }
     ],

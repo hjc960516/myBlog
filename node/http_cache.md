@@ -4,8 +4,8 @@ prev:
   text: "大文件上传和文件流下载"
   link: "/node/bigFileUpload_dowmloadStream"
 next:
-  text: "http缓存"
-  link: "/node/http_cache"
+  text: "http2"
+  link: "/node/http2"
 ---
 
 ## http 缓存
