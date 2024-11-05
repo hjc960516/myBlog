@@ -199,6 +199,26 @@ export default defineConfig({
             text: "openAi",
             link: '/node/openAi'
           },
+          {
+            text: "远程桌面",
+            link: '/node/remote_desktop'
+          },
+          {
+            text: "ClamAV杀毒引擎",
+            link: '/node/ClamAV'
+          },
+          {
+            text: "oss云存储",
+            link: "/node/oss"
+          },
+          {
+            text: "libuv",
+            link: "/node/libuv"
+          },
+          {
+            text: "fastify框架",
+            link: "/node/fastify"
+          }
         ]
       }
     ],

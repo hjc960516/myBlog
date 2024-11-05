@@ -24,6 +24,7 @@ features:
   - title: vue源码解析
     details: vue源码解析
     link: "/vue/index"
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: nodejs
+    details: nodejs相关
+    link: "/node/index"
 ---

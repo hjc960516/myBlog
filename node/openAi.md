@@ -4,8 +4,8 @@ prev:
   text: "SCL扫码登录"
   link: "/node/scanCodeLogin"
 next:
-  text: "openAi"
-  link: "/node/openAi"
+  text: "远程桌面"
+  link: "/node/remote_desktop"
 ---
 
 ## OpenAI
