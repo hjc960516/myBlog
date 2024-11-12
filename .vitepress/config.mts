@@ -218,6 +218,14 @@ export default defineConfig({
           {
             text: "fastify框架",
             link: "/node/fastify"
+          },
+          {
+            text: "fastify的网关层",
+            link: "/node/fastifyjs_gateway"
+          },
+          {
+            text: "微服务(micro servers)和monorepo",
+            link: "/node/microServers_monorepo"
           }
         ]
       }

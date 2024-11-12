@@ -4,8 +4,8 @@ prev:
   text: "libuv"
   link: "/node/libuv"
 next:
-  text: "fastify框架"
-  link: "/node/fastify"
+  text: "fastify的网关层"
+  link: "/node/fastifyjs_gateway"
 ---
 
 ## fastify
@@ -34,140 +34,52 @@ Fastify 可以被视为 Node.js 中的一个高效、现代化的 web 框架，�
 ## 代码
 
 ```js
-// node版本需要 >=18.20, fastify5.1版本
-import fastify from "fastify";
+import Fastify from "fastify";
 
-// 创建实例
-// fastify天然支持json格式
-// 自带日志插件
-const app = fastify({
-  logger: false, // 开启日志
+const app = Fastify({
+  logger: false,
 });
 
-// 支持两种返回数据方式
-// 1. return直接返回数据
-// 2. reply.send(), 与express不一样的是，fastify无法使用res.end()方法和res.json()，需要使用reply.send()
-
-// get请求
-app.get("/", async (request, reply) => {
-  // 1. return直接返回数据
-  return { hello: "world" };
-  // 2. reply.send()
-  reply.send({ hello: "world" });
-});
-
-// post请求
-app.post("/post", async (request, reply) => {
-  const { body } = request;
-  console.log(body);
-  // 1. return直接返回数据
-  return { hello: "world" };
-});
-
-// post路由
-app.route({
-  method: "POST", // 指定请求方式
-  url: "/post_route", // 指定请求路径
-  schema: {
-    // 限制请求出入参数
-    /**
-     * method == POST  schema的参数限制则是body
-     * method == GET  schema的参数限制则是query ，动态参数则是params
-     * method == PUT  schema的参数限制则是body
-     * method == DELETE  schema的参数限制则是body
-     * method == PATCH  schema的参数限制则是body
-     */
-    // 出参
-    body: {
-      type: "object", // 传入参数数据类型
-      properties: {
-        // 传入参数属性
-        name: {
-          type: "string",
-        },
-        age: {
-          type: "number",
-        },
-        address: {
-          type: "string",
-          default: "广州", // 默认项
-        },
-      },
-      required: ["name", "age"], // 必填项
-    },
-    // 出参
-    response: {
-      // 200: 200响应码
-      // 404: 404响应码
-      200: {
-        type: "object", // 返回数据类型
-        properties: {
-          // 返回数据属性
-          type: {
-            type: "string",
-          },
-          data: {
-            // 也可限制子集
-            type: "array",
-            items: {
-              type: "object",
-              properties: {
-                name: {
-                  type: "string",
-                },
-                age: {
-                  type: "number",
-                },
-                address: {
-                  type: "string",
-                  default: "广州", // 默认项
-                },
-              },
-            },
-          },
-        },
-      },
-    },
-  },
-  // 处理函数
-  handler: async (request, reply) => {
-    const { body } = request;
-    console.log(body);
-    // 1. return直接返回数据
-    return {
-      type: "success",
-      data: [
-        {
-          name: body.name,
-          age: body.age,
-          address: body.address,
-        },
-      ],
-    };
+// 注册knex插件并且连接数据库
+app.register(import("fastify-knexjs"), {
+  client: "mysql2",
+  connection: {
+    host: "127.0.0.1",
+    port: 3306,
+    user: "root",
+    password: "123456",
+    database: "hjc",
   },
 });
 
-// 插件
 /**
- * fastify: 实例，也就是上面的app
- * ops: 插件配置, 就是下面的配置： {name：‘test’}
- * done: 插件回调，类似express的插件的next()函数，控制流程的
+ * @todo 注册插件
+ * @param instance 相当于深拷贝的实例, instance能访问app的方法,
+ *  实际上是因为使用了Object.setPrototypeOf(目标对象, 需要指向的原型对象)
+ *  也就是说instance.__proto__ === app
+ * @param ops 插件配置
+ * @param done 回调，也就是放行执行后续操作，类似next()
  */
 app.register(
-  function (fastifyS, ops, done) {
-    // 添加公共函数，也就是挂载在实例上的公用变量或者函数, 在任何一个请求都可以用
-    // 类似vue的全局变量
-    /**
-     * decorate(名字，函数)
-     */
-    fastifyS.decorate("getFnName", () => ops.name);
+  (instance, ops, done) => {
+    app.decorate(ops.name, (a, b) => a + b);
+    console.log(
+      "register注册回调的instance--------------",
+      instance.test(1, 2)
+    ); // 可以获取
+    console.log("app实例--------------", app.test(2, 3)); // 无法获取
+    // 设置在当前实例上的方法
+    // 相当于 app.decorate('test1', (a, b) => a * b)
+    instance.__proto__.decorate("test1", (a, b) => a * b);
 
-    // 自定义插件名字
-    fastifyS.decorate(ops.name, (a, b) => a + b);
-    console.log(ops);
-    console.log(fastifyS[ops.name](1, 2));
-    console.log(app.test);
-    // 继续执行插件， done() ==  express插件的next()
+    instance.post("/post", (req, res) => {
+      const result = instance.test(36, 5);
+      return {
+        type: "post",
+        url: "/post",
+        result,
+      };
+    });
     done();
   },
   {
@@ -175,23 +87,200 @@ app.register(
   }
 );
 
-// 使用插件
-app.get("/test", async (request, reply) => {
-  // 调用插件函数
-  // const getFnName = app?.getFnName()
-  // const result = app?.test(1, 2)
+app.register(
+  function (instance, ops, done) {
+    console.log(instance.__proto__ == app, 1111111111111);
+    done();
+  },
+  {
+    name: "test",
+  }
+);
+
+app.get("/", (req, res) => {
+  const result = app?.test?.(1, 2) || null;
   return {
-    // getFnName,
-    // result
+    type: "get",
+    url: "/",
+    result,
   };
 });
 
-// 开启服务
-app.listen({ port: 3000 }).then((err, address) => {
+// 获取数据库数据
+app.get("/mysql", async (req, res) => {
+  const result = await app.knex("user_list").select("*");
+  return {
+    type: "mysql",
+    url: "/mysql",
+    result,
+  };
+});
+
+// 获取所有数据
+app.get("/get-all", async (req, res) => {
+  const result = await app.knex("user_list").select("*");
+  const arr = result.map((item) => {
+    return {
+      id: item.id,
+      name: item.name,
+      sex: item.sex === 1 ? "男" : "女",
+      address: item.address,
+      hobby: item.hobby.split(","),
+    };
+  });
+  return {
+    type: "mysql",
+    url: "/get-all",
+    result: arr,
+  };
+});
+
+// 自定义接口出入参
+// 添加数据到数据库
+app.route({
+  method: "POST",
+  url: "/create",
+  schema: {
+    body: {
+      type: "object",
+      required: ["name", "sex"],
+      properties: {
+        name: { type: "string" },
+        sex: { type: ["number", "string"], enum: ["男", "女"] },
+        address: { type: "string" },
+        hobby: { type: "array" },
+      },
+    },
+  },
+  handler: async (req, res) => {
+    let { name, sex, address, hobby } = req.body;
+    if (typeof sex === "string") sex = sex === "男" ? 1 : 0;
+
+    const list = await app.knex("user_list").where({ name, sex }).first();
+    if (list)
+      return {
+        type: "mysql",
+        url: "/create",
+        msg: "用户已存在",
+      };
+    const result = await app
+      .knex("user_list")
+      .insert({ name, sex, address, hobby });
+    return {
+      type: "mysql",
+      url: "/create",
+      msg: "添加成功",
+      result: {
+        id: result?.[0],
+        name,
+        sex,
+        address,
+        hobby,
+      },
+    };
+  },
+});
+
+// 更新数据到数据库
+app.route({
+  method: "post",
+  url: "/update",
+  schema: {
+    body: {
+      type: "object",
+      required: ["id"],
+      properties: {
+        id: { type: "number" },
+        name: { type: "string" },
+        sex: { type: ["number", "string"], enum: ["男", "女"] },
+        address: { type: "string" },
+        hobby: { type: "array" },
+      },
+    },
+  },
+  handler: async (req, res) => {
+    let { id, name, sex, address, hobby } = req.body;
+    if (typeof sex === "string") sex = sex === "男" ? 1 : 0;
+    const isHas = await app.knex("user_list").where({ id }).first();
+    if (!isHas)
+      return {
+        type: "mysql",
+        url: "/update",
+        msg: "用户不存在",
+      };
+    if (Array.isArray(hobby)) {
+      hobby = hobby.join(",");
+    }
+    const result = await app
+      .knex("user_list")
+      .where({ id })
+      .update({ name, sex, address, hobby });
+    return {
+      type: "mysql",
+      url: "/update",
+      msg: "更新成功",
+      result: {
+        id: result?.[0],
+        name,
+        sex,
+        address,
+        hobby,
+      },
+    };
+  },
+});
+
+// 删除数据到数据库
+app.route({
+  method: "get",
+  url: "/delete/:id",
+  schema: {
+    params: {
+      type: "object",
+      required: ["id"],
+      properties: {
+        id: { type: ["number", "string"] },
+      },
+    },
+  },
+  handler: async (req, res) => {
+    const { id } = req.params;
+    const isHas = await app.knex("user_list").where({ id }).first();
+    if (!isHas)
+      return {
+        type: "mysql",
+        url: "/delete",
+        msg: "用户不存在",
+      };
+    const result = await app.knex("user_list").where({ id }).delete();
+    return {
+      type: "mysql",
+      url: "/delete",
+      msg: "删除成功",
+    };
+  },
+});
+// 删除数据
+// app.get('/delete/:id', async (req, res) => {
+//   const { id } = req.params
+//   const isHas = await app.knex('user_list').where({ id }).first()
+//   if (!isHas) return {
+//     type: 'mysql',
+//     url: '/delete',
+//     msg: '用户不存在',
+//   }
+//   const result = await app.knex('user_list').where({ id }).delete()
+//   return {
+//     type: 'mysql',
+//     url: '/delete',
+//     msg: '删除成功'
+//   }
+// })
+
+app.listen({ port: 3000 }, (err, url) => {
   if (err) {
-    console.error(err);
     process.exit(1);
   }
-  console.log("服务器启动成功: http://localhost:3000");
+  console.log("服务启动: http://localhost:3000");
 });
 ```
