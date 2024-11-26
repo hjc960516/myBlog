@@ -4,8 +4,8 @@ prev:
   text: "微服务(micro servers)和monorepo"
   link: "/node/microServers_monorepo"
 next:
-  text: "rabbitMQ初体验"
-  link: "/node/rabbitMQ"
+  text: "rabbitMQ进阶"
+  link: "/node/rabbitMQ_advance"
 ---
 
 ## RabbitMQ

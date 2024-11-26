@@ -230,6 +230,10 @@ export default defineConfig({
           {
             text: "rabbitMQ初体验",
             link: "/node/rabbitMQ"
+          },
+          {
+            text: "rabbitMQ进阶",
+            link: "/node/rabbitMQ_advance"
           }
         ]
       }
