@@ -4,8 +4,8 @@ prev:
   text: "fastify的网关层"
   link: "/node/fastifyjs_gateway"
 next:
-  text: "微服务(micro servers)和monorepo"
-  link: "/node/microServers_monorepo"
+  text: "rabbitMQ初体验"
+  link: "/node/rabbitMQ"
 ---
 
 ## 微服务(micro servers)
