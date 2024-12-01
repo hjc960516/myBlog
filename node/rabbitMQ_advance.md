@@ -4,8 +4,8 @@ prev:
   text: "rabbitMQ初体验"
   link: "/node/rabbitMQ"
 next:
-  text: "rabbitMQ进阶"
-  link: "/node/rabbitMQ_advance"
+  text: "rabbitMQ延迟消息"
+  link: "/node/rabbitMQ_delay"
 ---
 
 # MQ 进阶
