@@ -4,9 +4,9 @@ outline: deep
 prev:
   text: "vue3的响应式"
   link: "/vue/reactivity"
-# next:
-#   text: "vue3的渲染器"
-#   link: "/vue/render"
+next:
+  text: "cicd"
+  link: "/cicd/index"
 ---
 
 ## 在根目录新建 render 文件夹

@@ -1,0 +1,65 @@
+## 服务名称
+name: myblog
+## 服务，也就是配置启动容器的命令配置
+services:
+  ## 第一个服务，mysql
+  mysql: 
+    # 容器名称, 也就是docker命令中的 --name 不写则直接用上面的 mysql 作为名称
+    container_name: mysql 
+    # 启动镜像，直接写 mysql 就是 mysql:latest 最新版本，mysql:8.0就是指定 8.0 版本
+    image: mysql:8.0 
+    # 端口映射, 也就是docker命令中的 -p
+    ports: 
+      - "3306:3306" # 第一个端口就是浏览器访问端口，第二个就是浏览器请求3306端口时代理到容器中的3306端口，3306端口是mysql的默认端口
+    # 环境变量配置，也就是docker命令的 -e
+    # 支持两种写法，但是不能混着写
+    # 第一种就是 key=value
+    # 第二种就是 key:value
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456 # mysql数据库的密码
+      - MYSQL_DATABASE=wordpress # 指定mysql的数据库是wordpress
+    # 卷, 也就是docker命令中的 -v
+    # 如果是 mysql-data 则指定是的卷，需要配置顶层，也就是最顶层配置自定义卷，也就是第一层配置 volumes 
+    # 如果是 /docker_mysql/myconf 路径形式，则需要先创建和给读写权限
+    volumes:
+      - mysql-data:/var/lib/mysql
+      ## 我这里为什么用 /Users/hello ? 
+      ## 是因为我使用的是 docker 的桌面版，文件是放在我自己的本机上，所以需要绝对路径
+      ## 如果你使用的是虚拟机，则不需要
+      - /Users/hello/docker_mysql/myconf:/etc/mysql/conf.d 
+    # 开机自启动, 也就是docker命令中的 --restart always
+    restart: always # always：一直, 其他配置请看文档
+    # 配置自定义网络, 也就是docker命令中的 --network mynet
+    # 需要在顶层配置, 也就是第一层配置 networks
+    networks:
+      - mybloknet
+  
+  ## 第二个服务 workpress
+  wordpress:
+    image: wordpress
+    ports:
+      - "9999:80"
+    environment:
+      WORDPRESS_DB_HOST: mysql # wordpress 的服务器指向 mysql 容器服务
+      WORKPRESS_DB_USER: root # wordpress数据库登录账号
+      WORKPRESS_DB_PASSWORD: 123456 # wordpress数据库登录密码
+      WORKPRESS_DB_NAME: wordpress # wordpress数据库名称
+    volumes:
+      - wordpress:/var/www/html
+    restart: always
+    networks:
+      - mybloknet
+    ## 依赖服务， 配置了mysql,也就是依赖于上面的mysql服务，优先启动 mysql 然后再启动 workpress 
+    depends_on:
+      - mysql
+
+# 顶层卷，也就是创建自定义卷，也就是docker命令的 docker volume create mysql-data wordpress
+volumes:
+  mysql-data:
+  wordpress:
+
+# 顶层自定义网络, 也就是创建自定义网络，也就是docker命令的 docker network create mybloknet
+networks:
+  mybloknet:
+
+

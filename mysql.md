@@ -1,11 +1,11 @@
 ---
 prev:
-  text: "直播技术详解"
-  link: "/on-line"
+  text: "cicd-jenkins"
+  link: "/cicd/jenkins"
 
 next:
-  text: "axios原理解析"
-  link: "/axios"
+  text: "docker介绍和安装"
+  link: "/docker/01.docker介绍和安装/README"
 ---
 
 ## 安装

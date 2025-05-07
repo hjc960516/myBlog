@@ -4,8 +4,11 @@ prev:
   text: "pinia核心思想"
   link: "/pinia"
 next:
-  text: "hybrid混合开发和移动端适配"
-  link: "/hybridMixAndmobile"
+  text: "postcss"
+  link: "/postcss"
+# next:
+#   text: "hybrid混合开发和移动端适配"
+#   link: "/hybridMixAndmobile"
 ---
 
 ## 微前端
