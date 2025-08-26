@@ -1,0 +1,1 @@
+import{_ as s,c as i,o as a,a3 as n}from"./chunks/framework.yy2qzmv1.js";const o=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"nestjs/5.请求控制器.md","filePath":"nestjs/5.请求控制器.md"}'),t={name:"nestjs/5.请求控制器.md"},l=n("",9),h=[l];function e(p,k,E,r,d,y){return a(),i("div",null,h)}const c=s(t,[["render",e]]);export{o as __pageData,c as default};

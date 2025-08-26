@@ -1,8 +1,8 @@
 ---
 outline: deep
 prev:
-  text: "mysql浅了解"
-  link: "/mysql"
+  text: "直播技术详解"
+  link: "/on-line"
 
 next:
   text: "webpack"

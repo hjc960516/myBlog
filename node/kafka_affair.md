@@ -4,8 +4,8 @@ prev:
   text: "kafka进阶"
   link: "/node/kafka_advance"
 next:
-  text: "kafka集群和事务"
-  link: "/node/kafka_affair"
+  text: "nacos注册中心"
+  link: "/node/nacos"
 ---
 
 ## kafka 集群和事务

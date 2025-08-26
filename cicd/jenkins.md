@@ -5,8 +5,8 @@ prev:
   text: "自定义项目cicd"
   link: "/cicd/custom"
 next:
-  text: "mysql浅了解"
-  link: "/mysql"
+  text: "性能优化"
+  link: "/performance-optimization"
 ---
 
 ## 基于`jenkins`的`pipeline`

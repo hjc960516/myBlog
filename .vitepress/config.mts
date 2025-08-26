@@ -77,6 +77,124 @@ export default defineConfig({
                 link: '/cicd/jenkins'
               },
             ]
+          },
+          {
+            text: '性能优化',
+            link: '/performance-optimization'
+          },
+          {
+            text: 'Nuxtjs',
+            items: [
+              {
+                text: '01介绍和优势',
+                link: '/nuxtjs/01介绍和优势'
+              },
+              {
+                text: '02基本使用和了解',
+                link: '/nuxtjs/02基本使用和了解'
+              },
+              {
+                text: '03路由和中间件',
+                link: '/nuxtjs/03路由和中间件'
+              },
+              {
+                text: '04状态管理',
+                link: '/nuxtjs/04状态管理'
+              },
+              {
+                text: '05.数据获取',
+                link: '/nuxtjs/05.数据获取'
+              },
+              {
+                text: '06.静态文件处理和seo',
+                link: '/nuxtjs/06.静态文件处理和seo'
+              },
+              {
+                text: '07.server层',
+                link: '/nuxtjs/07.server层'
+              },
+              {
+                text: '08.server-middleware中间件',
+                link: '/nuxtjs/08.server-middleware中间件'
+              },
+              {
+                text: '09.server存储层',
+                link: '/nuxtjs/09.server存储层'
+              },
+              {
+                text: '10.server-redis',
+                link: '/nuxtjs/10.server-redis'
+              },
+              {
+                text: '11.项目配置和环境变量',
+                link: '/nuxtjs/11.项目配置和环境变量'
+              },
+              {
+                text: '12.server-plugins',
+                link: '/nuxtjs/12.server-plugins'
+              },
+              {
+                text: '13.全局plugins',
+                link: '/nuxtjs/13.全局plugins'
+              },
+              {
+                text: '14.modules',
+                link: '/nuxtjs/14.modules'
+              },
+              {
+                text: '15.tailwindcss和zod验证ts推导',
+                link: '/nuxtjs/15.tailwindcss和zod验证ts推导'
+              },
+              {
+                text: '16.layout布局',
+                link: '/nuxtjs/16.layout布局'
+              },
+              {
+                text: '17.veeValidate和zod结合使用验证',
+                link: '/nuxtjs/17.veeValidate和zod结合使用验证'
+              },
+              {
+                text: '18.bcrypt加密和jwt验证',
+                link: '/nuxtjs/18.bcrypt加密和jwt验证'
+              },
+              {
+                text: '19.nuxtui',
+                link: '/nuxtjs/19.nuxtui'
+              },
+              {
+                text: '20.实例项目开始准备',
+                link: '/nuxtjs/20.实例项目开始准备'
+              },
+              {
+                text: '21前端layout页面和登录注册',
+                link: '/nuxtjs/21前端layout页面和登录注册'
+              },
+              {
+                text: '22后端登录注册',
+                link: '/nuxtjs/22后端登录注册'
+              },
+              {
+                text: '23用户管理前后端',
+                link: '/nuxtjs/23用户管理前后端'
+              },
+              {
+                text: '24构建和部署',
+                link: '/nuxtjs/24构建和部署'
+              },
+            ]
+          },
+          {
+            text: 'Threejs',
+            items: [
+              { text: "threejs入门", link: "/threejs/01入门" },
+              { text: "自定义模型(线条-贴图-第三方模型)", link: "/threejs/02自定义模型(线条-贴图-第三方模型)" },
+              { text: "blender模型", link: "/threejs/03blender模型" },
+              { text: "第三方模型操作", link: "/threejs/04第三方模型操作" },
+              { text: "第三方模型贴图操作", link: "/threejs/05第三方模型贴图操作" },
+              { text: "文字和粒子效果", link: "/threejs/06文字和粒子效果" },
+              { text: "模型公路流线和电梯上色", link: "/threejs/07模型公路流线和电梯上色" },
+              { text: "全景VR", link: "/threejs/08全景VR" },
+            ]
           }
         ]
       },
@@ -84,6 +202,7 @@ export default defineConfig({
         text: "后端",
         items: [
           { text: "mysql浅了解", link: "/mysql" },
+          { text: '数据库基本操作', link: '/server' },
           {
             text: 'docker',
             items: [
@@ -334,8 +453,49 @@ export default defineConfig({
                 text: "kafka集群和事务",
                 link: "/node/kafka_affair",
               },
+              {
+                text: "nacos注册中心",
+                link: "/node/nacos",
+              },
+              {
+                text: "ElasticSearch全文检索",
+                link: "/node/elasticSearch",
+              },
+              {
+                text: '集群(cluster)',
+                link: '/node/cluster'
+              },
+              {
+                text: 'pm2部署',
+                link: '/node/pm2'
+              },
             ],
           },
+          {
+            text: 'nestjs',
+            items: [
+              { text: '1.IOC控制反转和DI依赖注入', link: '/nestjs/1.IOC控制反转和DI依赖注入' },
+              { text: '2.前置知识-装饰器', link: '/nestjs/2.前置知识-装饰器' },
+              { text: '3.利用装饰器实现请求', link: '/nestjs/3.利用装饰器实现请求' },
+              { text: '4.脚手架(nestjs cli) 和 RESTful 风格设计', link: '/nestjs/4.脚手架(nestjs cli) 和 RESTful 风格设计' },
+              { text: '5.请求控制器', link: '/nestjs/5.请求控制器' },
+              { text: '6.Session', link: '/nestjs/6.Session' },
+              { text: '7.providers提供者', link: '/nestjs/7.providers提供者' },
+              { text: '8.module模块', link: '/nestjs/8.module模块' },
+              { text: '9.中间件', link: '/nestjs/9.中间件' },
+              { text: '10.上传下载静态资源图片', link: '/nestjs/10.上传下载静态资源图片' },
+              { text: '11.rxjs', link: '/nestjs/11.rxjs' },
+              { text: '12.拦截器', link: '/nestjs/12.拦截器' },
+              { text: '13.管道转换和验证', link: '/nestjs/13.管道转换和验证' },
+              { text: '14.管道验证DTO', link: '/nestjs/14.管道验证DTO' },
+              { text: '15.爬虫', link: '/nestjs/15.爬虫' },
+              { text: '16.守卫', link: '/nestjs/16.守卫' },
+              { text: '17.自定义装饰器', link: '/nestjs/17.自定义装饰器' },
+              { text: '18.swagger接口文档', link: '/nestjs/18.swagger接口文档' },
+              { text: '19.连接数据库', link: '/nestjs/19.连接数据库' },
+              { text: '20.crud和前端的测试项目', link: '/nestjs/20.crud和前端的测试项目' },
+            ]
+          }
         ]
       },
     ],
